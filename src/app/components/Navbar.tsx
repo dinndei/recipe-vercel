@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
 
     const recipes = useRecipeStore((state) => state.recipes)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
+    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
 
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -49,7 +50,7 @@ const Navbar: React.FC = () => {
         else {
             setActiveTab(tab);
             if (tab === "likes") {
-                const temp = filterByLikes(recipes)
+                const temp = filterByLikes(filteredRecipe)
                 setFilteredRecipe(temp)
             }
             else {
