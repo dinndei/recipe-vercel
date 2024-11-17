@@ -8,10 +8,10 @@ export async function POST(req: NextRequest) {
     try {
         await connectToDB();
 
-        const {email} = await req.json();
-        if (!email) throw new Error("Missing body");
+        const body = await req.json();
+        if (!body) throw new Error("Missing body");
 
-    const token=generateToken(email);
+    const token=generateToken(body);
 
         return NextResponse.json(
             { status: 200, message: "recipe created successfully", token: token },

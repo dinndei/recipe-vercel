@@ -30,18 +30,22 @@ export const getRecipeById = async (id: string): Promise<IRecipe | null> => {
     }
 };
 
-// // GET recipe by ID
-// export const getRecipeByQuery = async (query: string): Promise<IRecipe | null> => {
-//     try {
-//         const res = await axios.get(`http://localhost:3000/api/search/${query}`, {
-//             headers: { 'Cache-control': 'no-cache' }
-//         });
-//         return res.data.recipe;
-//     } catch (error) {
-//         console.error(error);
-//         return null;
-//     }
-// };
+// POST user to get token
+export const loginToken = async (user:{email:string,password:string}): Promise<string | null> => {
+    try {
+        const res = await axios.post(`/api/login`,
+            {user},
+             {
+            headers: { 'Cache-control': 'no-cache' }
+        });
+        console.log("res.data.token",res.data.token);
+        
+        return res.data.token;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
 
 // DELETE recipe by ID
 export const deleteRecipeById = async (id: string): Promise<IRecipe | null> => {
