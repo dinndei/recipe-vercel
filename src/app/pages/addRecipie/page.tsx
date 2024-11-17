@@ -59,6 +59,8 @@ const Page: React.FC = () => {
         const result = await createRecipe(data);
 
         if (result) {
+            console.log("נוסף בהצלחה",result);
+            
             addRecipe(result);
             Swal.fire({
                 title: "אלופים!",
