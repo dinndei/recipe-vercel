@@ -1,4 +1,4 @@
-import  IRecipe  from "@/app/types/recipe";
+import  {IRecipe}  from "@/app/types/recipe";
 import mongoose, { Model, Schema } from "mongoose";
 
 const IRecSchema: Schema<IRecipe> = new Schema({
