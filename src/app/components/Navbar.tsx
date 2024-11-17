@@ -1,8 +1,7 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RecipeCategory } from '@/app/types/recipe';
 import { useRecipeStore } from '../store/recipeStore';
-import { filterByCategory, filterByLikes, filterByQuery } from '../clientFunctions/filters';
 
 const Navbar: React.FC = () => {
 
@@ -10,31 +9,20 @@ const Navbar: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeTab, setActiveTab] = useState<string>('');
 
-    const recipes = useRecipeStore((state) => state.recipes)
-    const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
-    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
-
-
+    const setFilters = useRecipeStore((state) => state.setFilters);
+    
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newCategory = e.target.value as RecipeCategory
-        setCategory(newCategory);
-        console.log("category in navBar", category);
-        console.log("newCategory in navBar", newCategory);
-
-        const temp = filterByCategory(recipes, newCategory)
-        setFilteredRecipe(temp)
+        if (newCategory !== category) {
+            setCategory(newCategory);
+        }
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
-        setSearchQuery(query);
-
-        //ביצוע כל הסינוים על המערך המקורי
-        let filteredTmp= filterByCategory(recipes, category)
-        if (activeTab == "likes")
-             filteredTmp = filterByLikes(filteredTmp);
-        const filteredByQuery = filterByQuery(filteredTmp, query)
-        setFilteredRecipe(filteredByQuery)
+        if (query !== searchQuery) {
+            setSearchQuery(query);
+        }
     };
 
     const handleAddRecipe = () => {
@@ -43,24 +31,20 @@ const Navbar: React.FC = () => {
     };
 
     const handleTabClick = (tab: string) => {
-        if (tab === activeTab) {
-            console.log("the same");
-            return;
-        }
-        else {
+        if (tab !== activeTab) {
             setActiveTab(tab);
-            if (tab === "likes") {
-                const temp = filterByLikes(filteredRecipe)
-                setFilteredRecipe(temp)
-            }
-            else {
-                console.log("all");
-                if(category)
-                    filterByCategory(recipes,category)
-                setFilteredRecipe(filteredRecipe)
-            }
         }
-    };
+      };
+
+      useEffect(() => {
+        // When the filters change, apply the new filters.
+        setFilters({
+            category,
+            query: searchQuery,
+            onlyLiked: activeTab === 'likes',
+        });
+    }, [category, searchQuery, activeTab, setFilters]);
+
 
     return (
 
@@ -98,8 +82,8 @@ const Navbar: React.FC = () => {
                     className="py-2 px-4 text-lg font-medium bg-gray-100 border border-gray-300 rounded-full focus:ring-indigo-500 focus:border-indigo-500 text-gray-600"
                 >
                     <option value="">בחר קטגוריה</option>
-                    {Object.values(RecipeCategory).map((cat) => (
-                        <option key={cat} value={cat}>{cat}</option>
+                    {Object.values(RecipeCategory).map((category) => (
+                        <option key={category} value={category}>{category}</option>
                     ))}
                 </select>
 
