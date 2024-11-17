@@ -18,6 +18,7 @@ const recipeSchema = z.object({
     // })
     ,
     category: z.enum([
+        RecipeCategory.All,
         RecipeCategory.Appetizer,
         RecipeCategory.MainCourse,
         RecipeCategory.Dessert,
