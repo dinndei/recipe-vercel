@@ -29,7 +29,7 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
     };
 
     const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
-    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
+    // const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
 
 
     const openModal = () => {
