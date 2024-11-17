@@ -3,7 +3,7 @@ import { IRecipe, RecipeCategory } from "../types/recipe";
 import { filterRecipes } from "../clientFunctions/filters";
 
 interface IRecipeStore {
-    recipes: IRecipe[];
+    recipes: Partial<IRecipe[]>;
     filteredRecipe: IRecipe[];
     currentRecipe: IRecipe | null;
     filters: {
