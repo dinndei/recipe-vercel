@@ -55,7 +55,9 @@ const Navbar: React.FC = () => {
             }
             else {
                 console.log("all");
-                setFilteredRecipe(recipes)
+                if(category)
+                    filterByCategory(recipes,category)
+                setFilteredRecipe(filteredRecipe)
             }
         }
     };
