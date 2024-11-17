@@ -3,14 +3,20 @@ import { IRecipe } from "../types/recipe";
 
 
 // GET all recipes
-export const getRecipes = async (): Promise<IRecipe[] | []> => {    
+export const getRecipes = async (): Promise<IRecipe[] | null> => {
     try {
         const res = await axios.get('/api/get', {
             headers: { 'Cache-control': 'no-cache' }
         });
         console.log("res", res);
-        
+
+        if (res.status == 404)
+            return null;
+        if (res.status == 500)
+          throw new Error("server error in get recipies");
         return res.data.recipes;
+        
+
     } catch (error) {
         console.error(error);
         return [];
@@ -31,15 +37,15 @@ export const getRecipeById = async (id: string): Promise<IRecipe | null> => {
 };
 
 // POST user to get token
-export const loginToken = async (user:{email:string,password:string}): Promise<string | null> => {
+export const loginToken = async (user: { email: string, password: string }): Promise<string | null> => {
     try {
         const res = await axios.post(`/api/login`,
-            {user},
-             {
-            headers: { 'Cache-control': 'no-cache' }
-        });
-        console.log("res.data.token",res.data.token);
-        
+            { user },
+            {
+                headers: { 'Cache-control': 'no-cache' }
+            });
+        console.log("res.data.token", res.data.token);
+
         return res.data.token;
     } catch (error) {
         console.error(error);
@@ -101,9 +107,9 @@ export const updateRecipeLike = async (id: string, like: boolean): Promise<IReci
         const res = await axios.put(`/api/putLike/${id}`, { like }, {
             headers: { 'Cache-control': 'no-cache' }
         });
-        
+
         console.log("Updated recipe like status:", res.data.recipe);
-        
+
         return res.data.recipe;
     } catch (error) {
         console.error("Error updating recipe like status:", error);

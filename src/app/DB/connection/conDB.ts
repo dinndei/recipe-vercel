@@ -12,22 +12,25 @@ export const connectToDB = async () => {
     try {
         console.log("Connecting to MongoDB...");
         await mongoose.connect(MONGODB_URI, {
-            serverSelectionTimeoutMS: 30000, 
+            serverSelectionTimeoutMS: 5000,  
             socketTimeoutMS: 45000
         });
         isConnected = true;
         console.log("MongoDB connected successfully ☺");
     } catch (err) {
+        mongoose.connection.on("error", (err) => {
+            console.error("MongoDB error:", err);
+            if (err.name === "MongoNetworkError") {
+                console.log("Retrying connection...");
+                setTimeout(() => connectToDB(), 5000);
+            }
+        });
+        
         throw new Error("Error connecting to MongoDB: " + err);
     }
 };
 
+
 export const disconnectFromDB = async () => {
-    try {
-        await mongoose.disconnect();
-        isConnected = false;
-        console.log('Disconnected from MongoDB');
-    } catch (err) {
-        console.error('Error disconnecting from MongoDB:', err);
-    }
+ 
 };

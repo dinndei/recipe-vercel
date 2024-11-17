@@ -13,11 +13,11 @@ const Page: React.FC = () => {
     const setRecipes = useRecipeStore((state) => state.setRecipes);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [recipesPerPage] = useState(6);
+    const [recipesPerPage] = useState(8);
 
     const getRecipesInPage = async () => {
         try {
-            const firstRecipes: IRecipe[] = await getRecipes();
+            const firstRecipes: IRecipe[]|null = await getRecipes();
             setFilteredRecipe(firstRecipes || []);
             setRecipes(firstRecipes || []);
         } catch (err) {
