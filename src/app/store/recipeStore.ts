@@ -15,7 +15,7 @@ interface IRecipeStore {
     applyFilters: () => void;
     setRecipes: (recipes: IRecipe[]) => void;
     setFilteredRecipe: (recipes: IRecipe[]) => void;
-    addRecipe: (newRecipe:  Partial<IRecipe>) => void;
+    addRecipe: (newRecipe:  IRecipe) => void;
     deleteRecipe: (id: string) => void;
     updateLike: (id: string, isLiked: boolean) => void;
 }
@@ -51,7 +51,7 @@ export const useRecipeStore = create<IRecipeStore>((set,get) => ({
     setFilteredRecipe: (myrecipes: IRecipe[]) => {
         set({ filteredRecipe: myrecipes })
     },
-    addRecipe: (newRecipe: Partial<IRecipe>) =>
+    addRecipe: (newRecipe: IRecipe) =>
         set((state) => ({
             recipes: [...state.recipes, newRecipe] // מחזירים את המערך המעודכן
         })),
