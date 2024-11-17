@@ -3,7 +3,7 @@ import { IRecipe, RecipeCategory } from "../types/recipe";
 import { filterRecipes } from "../clientFunctions/filters";
 
 interface IRecipeStore {
-    recipes: Partial<IRecipe[]>;
+    recipes: IRecipe[];
     filteredRecipe: IRecipe[];
     currentRecipe: IRecipe | null;
     filters: {
@@ -21,7 +21,7 @@ interface IRecipeStore {
 }
 
 export const useRecipeStore = create<IRecipeStore>((set,get) => ({
-    recipes: [],//get
+    recipes: [],
     currentRecipe: null,
     filteredRecipe: [],
     filters: {
