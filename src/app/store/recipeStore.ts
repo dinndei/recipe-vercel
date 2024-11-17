@@ -9,7 +9,7 @@ interface IRecipeStore {
     setFilteredRecipe: (recipes: IRecipe[]) => void;
     addRecipe: (newRecipe: IRecipe) => void;
     deleteRecipe: (id: string) => void;
-
+    updateLike: (id: string,isLiked:boolean) => void;
 }
 
 export const useRecipeStore = create<IRecipeStore>((set) => ({
@@ -30,7 +30,15 @@ export const useRecipeStore = create<IRecipeStore>((set) => ({
         set((state) => ({
             recipes: state.recipes.filter(item => item._id != id), // מחזירים את המערך לאחר הסינון
             filteredRecipe:state.filteredRecipe.filter(item => item._id != id)
-        }))
-
+        })),
+        updateLike: (id: string, isLiked: boolean) =>
+            set((state) => ({
+                filteredRecipe: state.filteredRecipe.map((item) =>
+                    item._id === id ? { ...item, like: isLiked } : item
+                ) as IRecipe[], 
+                recipes: state.recipes.map((item) =>
+                    item._id === id ? { ...item, like: isLiked } : item
+                ) as IRecipe[], 
+            }))
 
 }))

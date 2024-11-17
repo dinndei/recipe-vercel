@@ -17,6 +17,8 @@ interface RecipeCardProps {
 const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
     const [isLiked, setIsLiked] = useState(recipe.like);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const updateLike = useRecipeStore((state) => state.updateLike)
+    const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
 
     useEffect(() => {
         setIsLiked(recipe.like);
@@ -26,10 +28,8 @@ const Card: React.FC<RecipeCardProps> = ({ recipe }) => {
         const newLikeStatus = !isLiked;
         setIsLiked(newLikeStatus);
         updateRecipeLike(String(recipe._id), newLikeStatus);
+        updateLike(String(recipe._id), newLikeStatus);
     };
-
-    const deleteRecipe = useRecipeStore((state) => state.deleteRecipe)
-    // const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
 
 
     const openModal = () => {
