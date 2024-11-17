@@ -61,7 +61,7 @@ const Page: React.FC = () => {
         if (result) {
             console.log("נוסף בהצלחה",result);
             
-            addRecipe(result);
+            addRecipe(data);
             Swal.fire({
                 title: "אלופים!",
                 text: "המתכון נוסף בהצלחה",
