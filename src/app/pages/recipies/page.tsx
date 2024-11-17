@@ -1,4 +1,6 @@
 'use client'
+export const dynamic = 'force-dynamic';
+
 import { getRecipes } from '@/app/actions/recipeActions';
 import Card from '@/app/components/card';
 import Navbar from '@/app/components/Navbar';
