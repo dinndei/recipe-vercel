@@ -10,7 +10,7 @@ export const  enum RecipeCategory {
     Salad = "Salad",            //סלט
 }
 
-export  interface IRecipe extends Document {
+export interface IRecipe extends Document {
     name: string;              
     category: RecipeCategory ;     
     image: string;                
