@@ -11,7 +11,6 @@ const Navbar: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>('');
 
     const recipes = useRecipeStore((state) => state.recipes)
-    const filteredRecipe = useRecipeStore((state) => state.filteredRecipe)
     const setFilteredRecipe = useRecipeStore((state) => state.setFilteredRecipe)
 
 

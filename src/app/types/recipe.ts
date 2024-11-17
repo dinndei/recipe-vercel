@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-export const  enum RecipeCategory {
+export enum RecipeCategory {
     All="All",
     Appetizer = "Appetizer",    // מנה ראשונה
     MainCourse = "Main Course", //מנה עיקרית

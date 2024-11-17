@@ -1,8 +1,8 @@
 import { connectToDB, disconnectFromDB } from "@/app/DB/connection/conDB";
 import Recipe from "@/app/DB/models/recipeModel";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         await connectToDB();
         
