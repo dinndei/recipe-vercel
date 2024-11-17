@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Swal from 'sweetalert2'
 import { createRecipe } from "@/app/actions/recipeActions";
+import { useRecipeStore } from "@/app/store/recipeStore";
 
 const recipeSchema = z.object({
     name: z.string().min(2, { message: "השם צריך להיות לפחות 2 תווים" })
@@ -40,13 +41,13 @@ type RecipeData = z.infer<typeof recipeSchema>;
 const Page: React.FC = () => {
 
     const [ingredients, setIngredients] = useState(["סבלנות"]);
-
+    const addRecipe=useRecipeStore((state)=>state.addRecipe);
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<RecipeData>({
         resolver: zodResolver(recipeSchema),
         defaultValues: {
             name: "my dish",
             category: RecipeCategory.All,
-            image: "../../images/supe.png",
+            image: "",
             instructions: "להתחיל בחיוך...",
             ingredients: ["מטבח נקי", "סבלנות"]
         },
@@ -58,6 +59,7 @@ const Page: React.FC = () => {
         const result = await createRecipe(data);
 
         if (result) {
+            addRecipe(data);
             Swal.fire({
                 title: "אלופים!",
                 text: "המתכון נוסף בהצלחה",
