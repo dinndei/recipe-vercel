@@ -80,19 +80,6 @@ const Page: React.FC = () => {
             });
         }
 
-        // if (result) {
-        //     Swal.fire({
-        //         title: "אלופים!",
-        //         text: "המתכון נוסף בהצלחה",
-        //         icon: "success"
-        //     });
-        // } else {
-        //     Swal.fire({
-        //         title: "שגיאה!",
-        //         text: "הייתה בעיה בהוספת המתכון",
-        //         icon: "error"
-        //     });
-        // }
     };
 
     const addIngredient = () => {
@@ -107,10 +94,10 @@ const Page: React.FC = () => {
     };
 
     return (
+        <div className="max-w-4xl mx-auto p-4 border border-gray-300 rounded-md shadow-md">
+            <h1 className="text-3xl font-extrabold mb-2 text-gray-800 tracking-tight">Add Recipe</h1>
 
-        <div className="max-w-2xl mx-auto p-4 border border-gray-300 rounded-md shadow-md">
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-6">
-
+            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="col-span-1 space-y-4">
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">שם המתכון</label>
@@ -122,7 +109,7 @@ const Page: React.FC = () => {
                         />
                         {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
                     </div>
-
+    
                     <div>
                         <label htmlFor="category" className="block text-sm font-medium text-gray-700">קטגוריה</label>
                         <select
@@ -138,7 +125,7 @@ const Page: React.FC = () => {
                         </select>
                         {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
                     </div>
-
+    
                     <div>
                         <label htmlFor="image" className="block text-sm font-medium text-gray-700">תמונה</label>
                         <input
@@ -149,7 +136,7 @@ const Page: React.FC = () => {
                         />
                         {errors.image && <p className="text-red-500 text-sm">{errors.image.message}</p>}
                     </div>
-
+    
                     <div>
                         <label htmlFor="ingredients" className="block text-sm font-medium text-gray-700">מרכיבים</label>
                         <div className="space-y-2">
@@ -173,7 +160,7 @@ const Page: React.FC = () => {
                         {errors.ingredients && <p className="text-red-500 text-sm">{errors.ingredients.message}</p>}
                     </div>
                 </div>
-
+    
                 <div className="col-span-1 flex flex-col">
                     <label htmlFor="instructions" className="block text-sm font-medium text-gray-700">הוראות הכנה</label>
                     <textarea
@@ -183,8 +170,8 @@ const Page: React.FC = () => {
                     />
                     {errors.instructions && <p className="text-red-500 text-sm">{errors.instructions.message}</p>}
                 </div>
-
-                <div className="col-span-2 flex justify-between mt-4">
+    
+                <div className="col-span-2 flex flex-col sm:flex-row justify-between mt-4 space-y-4 sm:space-y-0">
                     <button
                         type="button"
                         onClick={() => window.history.back()}
@@ -201,11 +188,8 @@ const Page: React.FC = () => {
                 </div>
             </form>
         </div>
-
-
-
-
-    )
+    );
+    
 }
 
 export default Page
