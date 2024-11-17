@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { connectToDB, disconnectFromDB } from "@/app/DB/connection/conDB";
 import Recipe from "@/app/DB/models/recipeModel";
 import { NextRequest, NextResponse } from "next/server";
