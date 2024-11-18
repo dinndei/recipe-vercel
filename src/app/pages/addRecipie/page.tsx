@@ -42,7 +42,7 @@ const Page: React.FC = () => {
 
     const [ingredients, setIngredients] = useState(["סבלנות"]);
     const addRecipe=useRecipeStore((state)=>state.addRecipe);
-    const recipes=useRecipeStore((state)=>state.recipes);
+    const recipes=useRecipeStore((state)=>state.filteredRecipe);
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<RecipeData>({
         resolver: zodResolver(recipeSchema),
         defaultValues: {
