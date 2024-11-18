@@ -55,6 +55,8 @@ export const useRecipeStore = create<IRecipeStore>((set, get) => ({
         set((state) => {
             console.log('New Recipe - store:', newRecipe); // הדפסה של המתכון החדש
             const updatedRecipes = [...state.recipes, newRecipe] as IRecipe[];
+            console.log(" [...state.recipes",  ...state.recipes);
+            
             console.log('Updated Recipes:', updatedRecipes); // הדפסה של המערך המעודכן
             return {
                 recipes: updatedRecipes, // מחזירים את המערך המעודכן
