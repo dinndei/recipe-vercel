@@ -20,7 +20,7 @@ interface IRecipeStore {
     updateLike: (id: string, isLiked: boolean) => void;
 }
 
-export const useRecipeStore = create<IRecipeStore>((set,get) => ({
+export const useRecipeStore = create<IRecipeStore>((set, get) => ({
     recipes: [],
     currentRecipe: null,
     filteredRecipe: [],
@@ -28,33 +28,39 @@ export const useRecipeStore = create<IRecipeStore>((set,get) => ({
         category: RecipeCategory.All,
         query: "",
         onlyLiked: false,
-      },
-      setFilters: (newFilters) => {
+    },
+    setFilters: (newFilters) => {
         set((state) => ({
-          filters: { ...state.filters, ...newFilters },
+            filters: { ...state.filters, ...newFilters },
         }));
         get().applyFilters(); // Automatically reapply filters
-      },
-      applyFilters: () => {
+    },
+    applyFilters: () => {
         const { recipes, filters } = get();
         const filtered = filterRecipes({
-          items: recipes,
-          category: filters.category,
-          query: filters.query,
-          onlyLiked: filters.onlyLiked,
+            items: recipes,
+            category: filters.category,
+            query: filters.query,
+            onlyLiked: filters.onlyLiked,
         });
         set({ filteredRecipe: filtered });
-      },
+    },
     setRecipes: (myrecipes: IRecipe[]) => {
         set({ recipes: myrecipes })
     },
     setFilteredRecipe: (myrecipes: IRecipe[]) => {
         set({ filteredRecipe: myrecipes })
     },
-    addRecipe: (newRecipe:Partial<IRecipe>) =>
-        set((state) => ({
-            recipes: [...state.recipes, newRecipe]as IRecipe[] // מחזירים את המערך המעודכן
-        })),
+    addRecipe: (newRecipe: Partial<IRecipe>) =>
+        set((state) => {
+            console.log('New Recipe - store:', newRecipe); // הדפסה של המתכון החדש
+            const updatedRecipes = [...state.recipes, newRecipe] as IRecipe[];
+            console.log('Updated Recipes:', updatedRecipes); // הדפסה של המערך המעודכן
+            return {
+                recipes: updatedRecipes, // מחזירים את המערך המעודכן
+            };
+
+        }),
     deleteRecipe: (id: string) =>
         set((state) => ({
             recipes: state.recipes.filter(item => item._id != id), // מחזירים את המערך לאחר הסינון
