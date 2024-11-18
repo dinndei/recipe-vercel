@@ -40,9 +40,15 @@ type RecipeData = z.infer<typeof recipeSchema>;
 
 const Page: React.FC = () => {
 
-    const [ingredients, setIngredients] = useState(["סבלנות"]);
+    const [ingredients, setIngredients] = useState(["אהבה","שמחה"]);
     const addRecipe=useRecipeStore((state)=>state.addRecipe);
-    const recipes=useRecipeStore((state)=>state.filteredRecipe);
+    const filteredRecipe=useRecipeStore((state)=>state.filteredRecipe);
+    const recipes=useRecipeStore((state)=>state.recipes);
+    
+   
+    console.log("recipies before add",recipes);
+    console.log("fltered recipies before add",filteredRecipe);
+
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<RecipeData>({
         resolver: zodResolver(recipeSchema),
         defaultValues: {
