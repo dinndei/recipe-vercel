@@ -69,12 +69,7 @@ const Page: React.FC = () => {
 
         if (result) {
             console.log("נוסף בהצלחה",result);
-            
             addRecipe(data);
-//ckdich iurfhliw
-/dmexk <chfiuc />frjfub
-            useRecipeStore.getState().applyFilters();
-
             Swal.fire({
                 title: "אלופים!",
                 text: "המתכון נוסף בהצלחה",
