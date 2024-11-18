@@ -25,7 +25,7 @@ export async function GET() {
         );
     }
     catch (err) {
-        console.error("Error retrieving recipes:", err.message);
+        console.error("Error retrieving recipes:", err);
         return NextResponse.json({ message: "Server error getting recipes", err },
             {status:500}
         );
