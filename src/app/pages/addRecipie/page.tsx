@@ -42,6 +42,7 @@ const Page: React.FC = () => {
 
     const [ingredients, setIngredients] = useState(["סבלנות"]);
     const addRecipe=useRecipeStore((state)=>state.addRecipe);
+    const recipes=useRecipeStore((state)=>state.recipes);
     const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<RecipeData>({
         resolver: zodResolver(recipeSchema),
         defaultValues: {
@@ -55,6 +56,8 @@ const Page: React.FC = () => {
 
     const onSubmit = async (data: RecipeData) => {
         console.log("נתונים תקינים:", data);
+        console.log("recipes", recipes);
+        
 
         const result = await createRecipe(data);
 
